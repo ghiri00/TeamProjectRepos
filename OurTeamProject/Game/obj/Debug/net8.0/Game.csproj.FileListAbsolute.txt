@@ -12,3 +12,4 @@ C:\Users\User\source\repos\TeamProject\OurTeamProject\Game\obj\Debug\net8.0\refi
 C:\Users\User\source\repos\TeamProject\OurTeamProject\Game\obj\Debug\net8.0\Game.pdb
 C:\Users\User\source\repos\TeamProject\OurTeamProject\Game\obj\Debug\net8.0\Game.genruntimeconfig.cache
 C:\Users\User\source\repos\TeamProject\OurTeamProject\Game\obj\Debug\net8.0\ref\Game.dll
+C:\Users\User\source\repos\TeamProject\OurTeamProject\Game\obj\Debug\net8.0\Game.sourcelink.json

@@ -1,10 +1,16 @@
-﻿namespace Game
+﻿using Game.Combat;
+
+namespace Game
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello!!!");
+            //===============================
+            // тестування методу ArrowsAttack()
+            Enemy enemy = new();
+            enemy.ArrowsAttack();
+            //================================
         }
     }
 }
