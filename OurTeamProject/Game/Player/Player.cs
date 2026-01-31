@@ -58,7 +58,9 @@ namespace Game.Player
             Defense += 1;
             HP = MaxHP;
 
+            Console.Clear();
             Console.WriteLine("⬆️ Level Up!");
+            Thread.Sleep(1500);
         }
     }
 }

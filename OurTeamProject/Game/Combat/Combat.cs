@@ -1,136 +1,106 @@
-﻿using System;
+﻿using Game.Core;
+using Game.Events;
+using Game.Player;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Game.Combat
 {
-    internal class Combat
+    internal class CombatClass
     {
-
-    }
-
-    internal class Enemy
-    {
-        private protected string Name;
-        private protected int Hp;
-        private protected int Difficulty; // від 1 до 5
-
-        public Enemy(string name, int hp, int diff)
+        public static void ClearKeyBuffer()
         {
-            Name = name;
-            Hp = hp;
-            Difficulty = diff;
+            while (Console.KeyAvailable)
+            {
+                Console.ReadKey(true);
+            }
         }
-        public Enemy()
-        {
-            Name = "Невідоме ім'я";
-            Hp = 50;
-            Difficulty = 1;
-        }
-        public void PrintAttack()
-        {
-            Console.Clear();
-            Console.WriteLine($"{Name} готується до атаки.");
-            Thread.Sleep(1500);
-        }
-        public void PrintDeath()
-        {
-            Console.Clear();
-            Console.WriteLine($"{Name} помирає.");
-            Thread.Sleep(1500);
-        } 
-        public void ArrowsAttack() // гравцю потрібно вчасно натискати на стрілочки
+        public static int RandomNumber(int from, int to)
         {
             Random random = new Random();
-            int randomArrow;
-            int count = 0;
-
-            PrintAttack();
+            return random.Next(from, to + 1);
+        }
+        public static void MobCombat(Enemy mob, Player.Player _player)
+        {
             Console.Clear();
-            Console.WriteLine("Готуйтеся ухилятись!");
+            Console.WriteLine($"The battle began with: {mob.Name}");
             Thread.Sleep(1500);
+
+            int choise;
+            while ((mob.Hp > 0 && _player.HP > 0))
+            {
+                Console.Clear();
+                Console.WriteLine($"" +
+                    $"Your HP: {_player.HP}\n" +
+                    $"{mob.Name}'s Hp: {mob.Hp}\n\n" +
+                    $"Actions:\n" +
+                    $"1 - Fight\n" +
+                    $"2 - Heal\n" +
+                    $"3 - Run away");
+                ClearKeyBuffer();
+                choise = Convert.ToInt32(Console.ReadLine());
+                switch (choise)
+                {
+                    case 1:
+                        Attack(mob, _player);
+                        break;
+                    case 2:
+                        { 
+                            _player.Heal(15); 
+                            int randomNumber = RandomNumber(1, 4);
+                            if (randomNumber == 1)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"The enemy also managed to heal.");
+                                mob.Hp += 10;
+                                Thread.Sleep(1000);
+                            }
+                            break;
+                        }
+                    case 3:
+                        {
+                            int randomNumber = RandomNumber(1, 3);
+                            if(randomNumber == 1)
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"You managed to escape from { mob.Name}!");
+                                Thread.Sleep(1500);
+                                return;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine($"You failed to escape from {mob.Name}!");
+                                Thread.Sleep(1500);
+                                Attack(mob, _player);
+                            }
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            } 
+            if (mob.Hp <= 0)
+            {
+                _player.AddXP(50);
+                Console.Clear();
+                Console.WriteLine($"You defeated the {mob.Name}!");
+                Thread.Sleep(2000);  
+            }
             Console.Clear();
-
-            Dictionary<ConsoleKey, string> arrows = new Dictionary<ConsoleKey, string>();
-            arrows.Add
-              (ConsoleKey.LeftArrow,
-             "\n     /" +
-             "\n    /" +
-             "\n   <-----------" +
-             "\n   \\" +
-             "\n    \\");
-            arrows.Add
-              (ConsoleKey.UpArrow,
-             "\n    ^" +
-             "\n  / | \\" +
-             "\n /  |  \\" +
-             "\n    |" +
-             "\n    |");
-            arrows.Add
-              (ConsoleKey.RightArrow,
-             "\n            \\" +
-             "\n             \\" +
-             "\n   ----------->" +
-             "\n             /" +
-             "\n            /");
-            arrows.Add
-              (ConsoleKey.DownArrow,
-             "\n    |" +
-             "\n    |" +
-             "\n    |" +
-             "\n \\  | /" +
-             "\n   \\|/");
-            List<ConsoleKey> keys = arrows.Keys.ToList(); // можливість звертатися за індексами
-            for (int i = 1; i <= 5; i++)
-            {
-                randomArrow = random.Next(keys.Count);
-                ConsoleKey randomKey = keys[randomArrow];
-
-                Console.WriteLine(arrows[randomKey]);
-                var key = Console.ReadKey(true).Key;
-                if (key == randomKey)
-                {
-                    count++;
-                    Console.WriteLine(":)");
-                    Thread.Sleep(1500);
-                    Console.Clear();
-                }
-                else
-                {
-                    Console.WriteLine(":(");
-                    Thread.Sleep(1500);
-                    Console.Clear();
-                }
-            }
-            if(count == 5)
-            {
-                PrintDeath();
-            }
-            else
-            {
-                Console.WriteLine("Ви програли.");
-            }
+            Thread.Sleep(1500);
         }
-    }
-    internal class Boar : Enemy // перший супротивник
-    {
-        public Boar() : base("Кабан", 50, 1)
+        private static void Attack(Enemy mob, Player.Player _player)
         {
-        }
-    }
-    internal class Slime : Enemy //другий супротивник
-    {
-        public Slime() : base("Слайм", 50, 2)
-        {
-        }
-    }
-    internal class Centaur : Enemy // третій супротивник
-    {
-        public Centaur() : base("Дикий кентавр", 150, 4)
-        {
+            int randomNumber = RandomNumber(1, 2);
+            if (randomNumber == 1)
+                ArrowsAttack.ArrowsAttackMethod(mob, _player);
+            else if (randomNumber == 2)
+                ArrowsSequenceAttack.ArrowsSequenceAttackMethod(mob, _player);
         }
     }
 }

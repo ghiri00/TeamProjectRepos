@@ -1,5 +1,6 @@
 ﻿using Game.Player;
 using System;
+using Game.Events;
 
 namespace Game.Core
 {
@@ -7,7 +8,7 @@ namespace Game.Core
     {
         private Player.Player _player;
         private int _day = 1;
-        private bool _isRunning = true;
+        public bool _isRunning = true;
 
         public GameEngine()
         {
@@ -67,8 +68,9 @@ namespace Game.Core
         private void Explore()
         {
             Console.WriteLine("🌲 You explore the area...");
-            _player.TakeDamage(5); // тимчасово, поки немає Combat/EventSystem
-            Console.WriteLine("⚠️ You got hurt during exploration!");
+            //_player.TakeDamage(5); // тимчасово, поки немає Combat/EventSystem
+            //Console.WriteLine("⚠️ You got hurt during exploration!");
+            Event.RandomEvent(_player);
         }
 
         private void Rest()
