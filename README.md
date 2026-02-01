@@ -1,9 +1,9 @@
 ---
-### ⚔️ Console RPG Survival
+## ⚔️ Console RPG Survival
 ---
 A text-based survival adventure built in C#. You trainin your skills, exploring diverse biomes, and ultimately facing a legendary trial to venture beyond the borders of your home.
 ---
-## 🌟 Features
+### 🌟 Features
 ---
 * Turn-Based Combat: Engage in battles where every move counts. Choose to Fight, Heal, or Run.
 
@@ -25,7 +25,7 @@ A text-based survival adventure built in C#. You trainin your skills, exploring 
   
 * The project is organized into clean, modular namespaces
 ---
-## 📜 Game Logic Flow
+### 📜 Game Logic Flow
 ---
 1. Preparation: Use the Rest action to heal and the Status menu to track your progress.
 
@@ -35,7 +35,7 @@ A text-based survival adventure built in C#. You trainin your skills, exploring 
 
 4. Victory: Select "Venture beyond the borders" to trigger the final act. Defeat the Old Sage to complete the game.
 ---
-## 🎮 Controls
+### 🎮 Controls
 ---
 * Use numbers (1-5) to navigate menus.
   
