@@ -17,35 +17,37 @@ namespace Game.Combat
         }
         public static void ArrowsSequenceAttackMethod(Enemy enemy, Player.Player _player)
         {
-            Dictionary<ConsoleKey, string> arrows = new Dictionary<ConsoleKey, string>();
-            arrows.Add
-              (ConsoleKey.LeftArrow,
-             "\n     /" +
-             "\n    /" +
-             "\n   <-----------" +
-             "\n   \\" +
-             "\n    \\");
-            arrows.Add
-              (ConsoleKey.UpArrow,
-             "\n    ^" +
-             "\n  / | \\" +
-             "\n /  |  \\" +
-             "\n    |" +
-             "\n    |");
-            arrows.Add
-              (ConsoleKey.RightArrow,
-             "\n            \\" +
-             "\n             \\" +
-             "\n   ----------->" +
-             "\n             /" +
-             "\n            /");
-            arrows.Add
-              (ConsoleKey.DownArrow,
-             "\n    |" +
-             "\n    |" +
-             "\n    |" +
-             "\n \\  | /" +
-             "\n   \\|/");
+            Dictionary<ConsoleKey, string> arrows = new Dictionary<ConsoleKey, string> 
+            {
+                [ConsoleKey.LeftArrow] = @"
+                  /
+                 /
+                <-----------
+                 \
+                  \",
+
+                [ConsoleKey.UpArrow] = @"
+                   ^
+                 / | \
+                /  |  \
+                   |
+                   |",
+                [ConsoleKey.RightArrow] = @"
+                         \
+                          \
+                ----------->
+                          /
+                         /",
+                [ConsoleKey.DownArrow] = @"
+                    |
+                    |
+                    |
+                 \  |  /
+                  \ | /
+                   \|/
+
+                "
+            };
             List<ConsoleKey> keys = arrows.Keys.ToList();
 
             List<ConsoleKey> sequence = new List<ConsoleKey>();

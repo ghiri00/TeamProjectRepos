@@ -30,7 +30,7 @@ namespace Game.Combat
             Console.WriteLine($"The battle began with: {mob.Name}");
             Thread.Sleep(1500);
 
-            int choise;
+            string choise;
             while ((mob.Hp > 0 && _player.HP > 0))
             {
                 Console.Clear();
@@ -42,13 +42,13 @@ namespace Game.Combat
                     $"2 - Heal\n" +
                     $"3 - Run away");
                 ClearKeyBuffer();
-                choise = Convert.ToInt32(Console.ReadLine());
+                choise = Console.ReadLine();
                 switch (choise)
                 {
-                    case 1:
+                    case "1":
                         Attack(mob, _player);
                         break;
-                    case 2:
+                    case "2":
                         { 
                             _player.Heal(15); 
                             int randomNumber = RandomNumber(1, 4);
@@ -61,10 +61,10 @@ namespace Game.Combat
                             }
                             break;
                         }
-                    case 3:
+                    case "3":
                         {
                             int randomNumber = RandomNumber(1, 3);
-                            if(randomNumber == 1)
+                            if(randomNumber == 1 && mob.Name != "Old sage")
                             {
                                 Console.Clear();
                                 Console.WriteLine($"You managed to escape from { mob.Name}!");
@@ -86,21 +86,22 @@ namespace Game.Combat
             } 
             if (mob.Hp <= 0)
             {
-                _player.AddXP(50);
+                _player.AddXP(100);
                 Console.Clear();
                 Console.WriteLine($"You defeated the {mob.Name}!");
-                Thread.Sleep(2000);  
+                Thread.Sleep(2000);
+                Console.Clear();
             }
-            Console.Clear();
-            Thread.Sleep(1500);
         }
         private static void Attack(Enemy mob, Player.Player _player)
         {
-            int randomNumber = RandomNumber(1, 2);
+            int randomNumber = RandomNumber(1, 3);
             if (randomNumber == 1)
                 ArrowsAttack.ArrowsAttackMethod(mob, _player);
             else if (randomNumber == 2)
                 ArrowsSequenceAttack.ArrowsSequenceAttackMethod(mob, _player);
+            else if (randomNumber == 3)
+                MathAttack.MathAttackMethod(mob, _player);
         }
     }
 }

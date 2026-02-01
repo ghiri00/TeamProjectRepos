@@ -37,7 +37,8 @@ namespace Game.Core
             Console.WriteLine("1. Explore");
             Console.WriteLine("2. Rest");
             Console.WriteLine("3. Check Status");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Venture beyond the borders"); 
+            Console.WriteLine("5. Exit");
         }
 
         private void HandleInput()
@@ -57,6 +58,9 @@ namespace Game.Core
                     ShowStatus();
                     break;
                 case "4":
+                    Ending();
+                    break;
+                case "5":
                     _isRunning = false;
                     break;
                 default:
@@ -64,12 +68,20 @@ namespace Game.Core
                     break;
             }
         }
+        private void Ending()
+        {
+            bool won = Event.FinalAct(_player);
+            if (won)
+            {
+                Console.Clear();
+                Console.WriteLine("Сongratulations! You have completed the game!");
+                Thread.Sleep(3000);
+                _isRunning = false;
+            }
 
+        }
         private void Explore()
         {
-            Console.WriteLine("🌲 You explore the area...");
-            //_player.TakeDamage(5); // тимчасово, поки немає Combat/EventSystem
-            //Console.WriteLine("⚠️ You got hurt during exploration!");
             Event.RandomEvent(_player);
         }
 

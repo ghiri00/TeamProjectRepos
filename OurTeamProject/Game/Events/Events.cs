@@ -1,4 +1,5 @@
 ﻿using Game.Combat;
+using Game.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Game.Player;
+using System.Reflection.Metadata;
 
 namespace Game.Events
 {
@@ -26,23 +28,28 @@ namespace Game.Events
         }
         public static void RandomEvent(Player.Player _player)
         {
-            Event biom = RandomBiom();
-            Console.Clear();
-            Console.WriteLine($"You stroll somewhere...");
-            Thread.Sleep(1500);
-            Console.WriteLine($"You end up in {biom.Name}.");
-            Thread.Sleep(1500);
+            for (int i = 0; i < 3; i++)
+            {
+                Event biom = RandomBiom();
+                Console.Clear();
+                Console.WriteLine($"You’re strolling somewhere...");
+                Thread.Sleep(1500);
+                Console.WriteLine($"You ended up in {biom.Name}.");
+                Thread.Sleep(1500);
 
-            int randomNumber = RandomNumber(1, 2);
-            if (randomNumber == 1)
-            {
-                NpcAppearance(biom.Npc);
-                NpcInteractionMenu(biom.Npc, _player);
-            }
-            else
-            {
-                Enemy mob = biom.RandomMobSpawn();
-                CombatClass.MobCombat(mob, _player);
+                int randomNumber = RandomNumber(1, 2);
+                if (randomNumber == 1)
+                {
+                    NpcAppearance(biom.Npc);
+                    NpcInteractionMenu(biom.Npc, _player);
+                }
+                else
+                {
+                    Enemy mob = biom.RandomMobSpawn();
+                    CombatClass.MobCombat(mob, _player);
+                }
+                if (_player.HP <= 0)
+                    return;
             }
         }
         public static void NpcInteractionMenu(Enemy Npc, Player.Player _player)
@@ -69,18 +76,18 @@ namespace Game.Events
                             if (randomNumber == 1)
                             {
                                 Console.Clear();
-                                Console.WriteLine($"The conversation went well,, " +
+                                Console.WriteLine($"The conversation went well, " +
                                     $"even though you were a bit tired from all the chatter..");
                                 Thread.Sleep(1500);
                                 Console.Clear();
-                                _player.AddXP(20);
+                                _player.AddXP(40);
                             }
                             else
                             {
                                 Console.Clear();
                                 Console.WriteLine($"It seems you won't find anything to talk about today");
                                 Console.WriteLine($"On the way back, you were bitten by a snake. Ouch.");
-                                _player.TakeDamage(25);
+                                _player.TakeDamage(5);
                                 Thread.Sleep(3000);
                                 Console.Clear();
                             }
@@ -119,7 +126,7 @@ namespace Game.Events
                     }
                 case 4:
                     {
-                        DryGrassland biom = new DryGrassland();
+                        RunestoneCircle biom = new RunestoneCircle();
                         return biom;
                     }
                 default:
@@ -154,11 +161,57 @@ namespace Game.Events
         {
             return null;
         }
+        public static bool FinalAct(Player.Player _player)
+        {
+            Console.Clear();
+            Console.WriteLine("You have approached the border of the area...");
+            Thread.Sleep(2000);
+            if (_player.Level < 3)
+            {
+                Console.Clear();
+                Console.WriteLine("But you don't think you're ready to leave yet...");
+                Thread.Sleep(2500);
+                Console.Clear();
+                return false;
+            }
+            Console.WriteLine("And you think you can do it...");
+            Thread.Sleep(2000);
+            string choice = "x";
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Are you sure you're ready to fight the final boss \n" +
+                    "with no chance of turning back?\n" +
+                    "1 - Yes\n" +
+                    "2 - No");
+                choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        break;
+                    case "2":
+                        return false;
+                    default:
+                        choice = "x";
+                        break;
+                }
+            } while (choice == "x");
+
+            UIclass.FinalDialogue();
+            Enemy boss = new("Old sage", 500);
+
+            CombatClass.MobCombat(boss, _player);
+            if (_player.HP <= 0)
+                return false;
+            else
+                UIclass.AfterWinDialogue();
+            return true;
+        }
     }
     internal class DenseForest : Event
     {
         public Enemy mob1 = new("Bat", 50);
-        public Enemy mob2 = new("Shadow demon", 100);
+        public Enemy mob2 = new("Weak shadow demon", 60);
         public DenseForest() : base("DenseForest", new Enemy("The injured hunter", 150)){}
         public override Enemy RandomMobSpawn()
         {
