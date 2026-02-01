@@ -5,6 +5,7 @@ A text-based survival adventure built in C#. You trainin your skills, exploring 
 
 ## 🌟 Features
 ---
+---
 * Turn-Based Combat: Engage in battles where every move counts. Choose to Fight, Heal, or Run.
 
 * Unique Attack Mechanics: Battles aren't just about stats. Attacks are randomized between:
