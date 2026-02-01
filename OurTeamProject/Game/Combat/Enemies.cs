@@ -27,10 +27,5 @@ namespace Game.Combat
             Console.WriteLine($"{Name} preparing to attack.");
             Thread.Sleep(1000);
         }
-        public int RandomNumber(int from, int to)
-        {
-            Random random = new Random();
-            return random.Next(from, to + 1);
-        }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Game.Combat;
-using Game.Core;
-using Game.Events;
-using Game.Player;
+﻿using Game.Core;
 
 namespace Game
 {

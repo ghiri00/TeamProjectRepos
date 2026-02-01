@@ -19,11 +19,6 @@ namespace Game.Combat
                 Console.ReadKey(true);
             }
         }
-        public static int RandomNumber(int from, int to)
-        {
-            Random random = new Random();
-            return random.Next(from, to + 1);
-        }
         public static void MobCombat(Enemy mob, Player.Player _player)
         {
             Console.Clear();
@@ -51,11 +46,11 @@ namespace Game.Combat
                     case "2":
                         { 
                             _player.Heal(15); 
-                            int randomNumber = RandomNumber(1, 4);
+                            int randomNumber = Event.RandomNumber(1, 4);
                             if (randomNumber == 1)
                             {
                                 Console.Clear();
-                                Console.WriteLine($"The enemy also managed to heal.");
+                                Console.WriteLine($"{mob.Name} also managed to increase their Hp.");
                                 mob.Hp += 10;
                                 Thread.Sleep(1000);
                             }
@@ -63,7 +58,7 @@ namespace Game.Combat
                         }
                     case "3":
                         {
-                            int randomNumber = RandomNumber(1, 3);
+                            int randomNumber = Event.RandomNumber(1, 3);
                             if(randomNumber == 1 && mob.Name != "Old sage")
                             {
                                 Console.Clear();
@@ -95,7 +90,7 @@ namespace Game.Combat
         }
         private static void Attack(Enemy mob, Player.Player _player)
         {
-            int randomNumber = RandomNumber(1, 3);
+            int randomNumber = Event.RandomNumber(1, 3);
             if (randomNumber == 1)
                 ArrowsAttack.ArrowsAttackMethod(mob, _player);
             else if (randomNumber == 2)

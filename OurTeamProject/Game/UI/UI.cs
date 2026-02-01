@@ -45,19 +45,19 @@ namespace Game.UI
 
             Console.WriteLine("Old sage: \"Face me.");
             Thread.Sleep(2000);
-            Console.WriteLine("If you can overcome my reflection, the path shall open.");
+            Console.WriteLine("\tIf you can overcome my reflection, the path shall open.");
             Thread.Sleep(1400);
-            Console.WriteLine("If not — return to your plow, for death beyond these borders knows no respect.\"");
-            Thread.Sleep(2000);
+            Console.WriteLine("\tIf not — return to your plow, for death beyond these borders knows no respect.\"");
+            Thread.Sleep(3000);
         }
         public static void AfterWinDialogue()
         {
             Console.WriteLine("Old sage: (Breathing heavily) \"You have bested an old teacher,");
             Thread.Sleep(2000);
             Console.WriteLine("\tbut remember: the monsters beyond these woods will not wait for your move.");
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             Console.WriteLine("\tI see now that you have the strength to survive.");
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             Console.WriteLine("\tBut do you have the heart to remain human in the chaos?");
             Thread.Sleep(2000);
             Console.WriteLine("\tThat will be your true trial.\"\n");

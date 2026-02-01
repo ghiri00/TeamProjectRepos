@@ -199,7 +199,6 @@ namespace Game.Events
 
             UIclass.FinalDialogue();
             Enemy boss = new("Old sage", 500);
-
             CombatClass.MobCombat(boss, _player);
             if (_player.HP <= 0)
                 return false;
